@@ -1,39 +1,403 @@
-<!-- NOVA ESTRUTURA DO LAYOUT PRINCIPAL -->
-<div class="hero">
-  
-  <div class="coluna-esquerda">
-    <!-- 1. Seu Card de Oferta -->
-    <section class="card offer" aria-label="Oferta principal">
-      <!-- (Todo o conteúdo do .card.offer original fica aqui dentro) -->
-    </section>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M7 Store</title>
+  <link rel="icon" href="topo.png" />
 
-    <!-- 2. TRAGA TODAS AS SEÇÕES DE BAIXO PARA CÁ -->
-    <section class="grid-section" aria-label="Benefícios">
-      <!-- (Conteúdo Benefícios) -->
-    </section>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <section class="reviews" aria-labelledby="titulo-avaliacao">
-      <!-- (Conteúdo Avaliações) -->
-    </section>
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        linear-gradient(rgba(0,0,0,.78), rgba(0,0,0,.9)),
+        url("fundo.png") center/cover no-repeat fixed;
+    }
 
-    <section class="content-card" id="sobre-nos" aria-labelledby="titulo-sobre">
-      <!-- (Conteúdo Sobre nós) -->
-    </section>
+    .hero {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 26px;
+      padding: 35px;
+      max-width: 1400px;
+      margin: auto;
+    }
 
-    <section class="faq" aria-labelledby="titulo-faq">
-      <!-- (Conteúdo Dúvidas) -->
-    </section>
+    .coluna-esquerda {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-    <section class="content-card" id="termos-uso" aria-labelledby="titulo-termos">
-      <!-- (Conteúdo Termos e Privacidade) -->
-    </section>
-  </div>
+    .coluna-direita {
+      position: sticky;
+      top: 25px;
+      height: fit-content;
+    }
 
-  <div class="coluna-direita">
-    <!-- 3. Seu Card de Checkout isolado aqui -->
-    <aside class="card checkout" aria-labelledby="titulo-pagamento">
-      <!-- (Todo o conteúdo do formulário de pagamento / PIX fica aqui dentro) -->
-    </aside>
-  </div>
+    .card,
+    .grid-section,
+    .reviews,
+    .content-card,
+    .faq {
+      background: rgba(5, 5, 5, 0.88);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 0 35px rgba(255, 200, 0, 0.12);
+      backdrop-filter: blur(8px);
+    }
 
-</div>
+    .logo {
+      width: 115px;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 38px;
+      color: #ffd700;
+      margin-bottom: 10px;
+      text-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 14px;
+      font-size: 24px;
+    }
+
+    p {
+      color: #e8e8e8;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .price {
+      margin: 18px 0;
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      animation: pulse 1.8s infinite;
+    }
+
+    .price span {
+      color: #ffd700;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .streamings {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .streamings span {
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .benefit {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .benefit strong {
+      color: #ffd700;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .review-box {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 16px;
+      margin-top: 10px;
+      border-left: 3px solid #ffd700;
+    }
+
+    .faq-item {
+      margin-bottom: 14px;
+    }
+
+    .faq-item strong {
+      color: #ffd700;
+    }
+
+    .checkout {
+      text-align: center;
+    }
+
+    .checkout h2 {
+      font-size: 25px;
+    }
+
+    .checkout input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      outline: none;
+      margin: 15px 0;
+      font-size: 15px;
+    }
+
+    .checkout input::placeholder {
+      color: #aaa;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ffd700, #b8860b);
+      color: #000;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.55);
+    }
+
+    .secure {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #cfcfcf;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .coluna-direita {
+        position: static;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .price {
+        font-size: 30px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .grid-section,
+      .reviews,
+      .content-card,
+      .faq {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="hero">
+
+    <div class="coluna-esquerda">
+
+      <section class="card offer">
+        <img src="logo.png" alt="M7 Store" class="logo" />
+
+        <h1>Compre o Pacote de Streaming</h1>
+
+        <p>
+          Tenha acesso a vários streamings por um preço acessível.
+          Após o pagamento via Pix, as informações são enviadas diretamente no seu e-mail.
+        </p>
+
+        <div class="price">
+          Por apenas <span>R$29,90</span>
+        </div>
+
+        <p>Válido por <strong>31 dias</strong>.</p>
+
+        <div class="streamings">
+          <span>Netflix</span>
+          <span>HBO Max</span>
+          <span>Disney+</span>
+          <span>Prime Video</span>
+          <span>Paramount+</span>
+          <span>Globoplay</span>
+          <span>Premiere</span>
+          <span>Sportv</span>
+          <span>ESPN</span>
+          <span>Apple TV</span>
+        </div>
+      </section>
+
+      <section class="grid-section">
+        <h2>Benefícios</h2>
+
+        <div class="benefits">
+          <div class="benefit">
+            <strong>Entrega rápida</strong>
+            <p>Após a confirmação do pagamento, o produto é enviado por e-mail.</p>
+          </div>
+
+          <div class="benefit">
+            <strong>Compra segura</strong>
+            <p>Seus dados são tratados com segurança e confidencialidade.</p>
+          </div>
+
+          <div class="benefit">
+            <strong>Preço acessível</strong>
+            <p>Pacote completo por um valor abaixo do mercado.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews">
+        <h2 id="titulo-avaliacao">Avaliações</h2>
+
+        <div class="review-box">
+          <p>⭐⭐⭐⭐⭐ “Comprei e recebi certinho no e-mail. Recomendo!”</p>
+        </div>
+
+        <div class="review-box">
+          <p>⭐⭐⭐⭐⭐ “Atendimento rápido e produto funcionando.”</p>
+        </div>
+      </section>
+
+      <section class="content-card" id="sobre-nos">
+        <h2 id="titulo-sobre">Sobre Nós</h2>
+
+        <p>
+          A M7 Store, fundada em 2024, trabalha com serviços de streaming e produtos digitais.
+          Nosso objetivo é oferecer uma compra simples, rápida e segura, com envio direto por e-mail
+          após a confirmação do pagamento.
+        </p>
+      </section>
+
+      <section class="faq">
+        <h2 id="titulo-faq">Dúvidas Frequentes</h2>
+
+        <div class="faq-item">
+          <p><strong>Como recebo meu produto?</strong></p>
+          <p>Você recebe as informações no e-mail informado após o pagamento.</p>
+        </div>
+
+        <div class="faq-item">
+          <p><strong>O pagamento é via Pix?</strong></p>
+          <p>Sim. Ao clicar em comprar, você será redirecionado para o pagamento.</p>
+        </div>
+
+        <div class="faq-item">
+          <p><strong>Qual a validade?</strong></p>
+          <p>O pacote é válido por 31 dias.</p>
+        </div>
+      </section>
+
+      <section class="content-card" id="termos-uso">
+        <h2 id="titulo-termos">Termos e Privacidade</h2>
+
+        <p>
+          Ao comprar na M7 Store, você concorda que o produto será enviado para o e-mail informado.
+          Os dados fornecidos são usados apenas para identificação da compra e entrega do produto,
+          seguindo boas práticas de segurança e privacidade.
+        </p>
+      </section>
+
+    </div>
+
+    <div class="coluna-direita">
+      <aside class="card checkout">
+        <h2 id="titulo-pagamento">Finalizar Compra</h2>
+
+        <p>Informe seu e-mail para receber o produto após o pagamento.</p>
+
+        <form id="formCompra">
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="Digite seu e-mail"
+            required
+          />
+
+          <button type="submit" class="btn">
+            Comprar agora
+          </button>
+        </form>
+
+        <p class="secure">
+          🔒 Pagamento seguro via Pix. Produto enviado por e-mail.
+        </p>
+      </aside>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 M7 Store — Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const form = document.getElementById("formCompra");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+
+      if (!email || !email.includes("@")) {
+        alert("Digite um e-mail válido.");
+        return;
+      }
+
+      localStorage.setItem("email_cliente_m7", email);
+
+      window.location.href = "https://mpago.la/2Lu7nSJ";
+    });
+  </script>
+
+</body>
+</html>
