@@ -454,28 +454,6 @@ h1 {
   color: #ffdfdf;
 }
 
-.streaming-showcase {
-  min-height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 12px;
-  padding: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.34);
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at center, rgba(212, 175, 55, 0.08), transparent 55%),
-    #080808;
-  overflow: hidden;
-}
-
-.streaming-img {
-  width: 100%;
-  max-height: 205px;
-  display: block;
-  object-fit: contain;
-}
-
 .checkout-head {
   text-align: center;
   margin-bottom: 15px;
@@ -1011,15 +989,6 @@ input[type="email"]:focus {
     padding: 12px;
   }
 
-  .streaming-showcase {
-    min-height: 150px;
-    padding: 10px;
-  }
-
-  .streaming-img {
-    max-height: 140px;
-  }
-
   .pix-box {
     min-height: 74px;
   }
@@ -1118,12 +1087,9 @@ input[type="email"]:focus {
           O total é calculado automaticamente conforme os streamings selecionados. Escolha pelo menos um produto para continuar.
         </p>
 
-        <div class="section">
-          <p class="section-title">Streamings disponíveis</p>
-          <figure class="streaming-showcase" aria-label="Imagem dos streamings inclusos">
-            <img src="streaming.png" class="streaming-img" alt="Streamings inclusos no pacote" loading="eager" decoding="async">
-          </figure>
-        </div>
+        <p class="microcopy">
+          A escolha dos streamings é feita no painel de pagamento ao lado. No celular, ela aparece logo abaixo desta oferta.
+        </p>
       </div>
 
       <aside class="card checkout" aria-labelledby="titulo-pagamento">
@@ -1220,7 +1186,7 @@ input[type="email"]:focus {
             <label class="service-option">
               <input type="checkbox" class="streaming-check" value="ESPN" data-price="10">
               <span class="service-icon">
-                <img src="espn.png" class="service-logo" alt="">
+                <img src="espn.jpg" class="service-logo" alt="">
               </span>
               <span class="service-name">ESPN</span>
               <span class="service-price">R$10,00</span>
@@ -1475,8 +1441,19 @@ input[type="email"]:focus {
 </main>
 
 <script>
-const pagamentoUrl = "https://mpago.la/2Lu7nSJ";
 const precoPorStreaming = 10;
+const linksPagamentoPorValor = {
+  10: "https://mpago.la/2sYwMtR",
+  20: "https://mpago.la/1r7sUys",
+  30: "https://mpago.la/1peuLnM",
+  40: "https://mpago.la/11H61xC",
+  50: "https://mpago.la/2HqHLLY",
+  60: "https://mpago.la/2DEuXeS",
+  70: "https://mpago.la/2DEuXeS",
+  80: "https://mpago.la/1BmuMFV",
+  90: "https://mpago.la/27QhQ1A",
+  100: "https://mpago.la/1w15oMH"
+};
 
 const form = document.getElementById("meuForm");
 const emailInput = document.getElementById("email_cliente");
@@ -1576,6 +1553,13 @@ form.addEventListener("submit", function(e) {
   sessionStorage.setItem("m7store_email", email);
   sessionStorage.setItem("m7store_streamings", selecionados.map((item) => item.nome).join(", "));
   sessionStorage.setItem("m7store_total", total.toFixed(2));
+
+  const pagamentoUrl = linksPagamentoPorValor[total];
+
+  if (!pagamentoUrl) {
+    alert("Não encontramos um link de pagamento para esse valor. Revise a seleção e tente novamente.");
+    return;
+  }
 
   btnComprar.disabled = true;
   btnComprar.textContent = "Redirecionando para o PIX...";
